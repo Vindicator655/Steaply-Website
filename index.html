@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steaply</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepBlack: '#0B0B0B',
+                        sapGreen: '#2F6B3F',
+                        vividRed: '#C1121F',
+                        offWhite: '#F4F4F4',
+                        brandcol: '#E6B400',
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Poppins', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F4F4F4;
+            color: #0B0B0B;
+            overflow-x: hidden;
+        }
+        .glass-nav {
+            background: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(11, 11, 11, 1) 100%);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(47, 107, 63, 0.5);
+        }
+        .section-padding {
+            padding: 100px 0;
+        }
+        /* Video Scroll Control styling */
+        #video-container {
+            height: 500vh; /* Lengthen page for scroll effect */
+            position: relative;
+        }
+        #sticky-video {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            object-fit: cover;
+            z-index: 10;
+        }
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-offWhite">
+
+    <!-- Header / Navigation -->
+    <nav id="navbar" class="glass-nav fixed w-full z-50 top-0 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center">
+            <span class="font-heading text-2xl tracking-tighter font-cinzelBold text-brandcol">STEAPLY</span>
+        </div>
+
+        <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide uppercase text-white/80">
+            <a href="#home" class="hover:text-sapGreen transition-colors">Home</a>
+            <a href="#about" class="hover:text-sapGreen transition-colors">About</a>
+            <a href="#product" class="hover:text-sapGreen transition-colors">Product</a>
+            <a href="#benefits" class="hover:text-sapGreen transition-colors">Benefits</a>
+            <a href="#pricing" class="hover:text-sapGreen transition-colors">Pricing</a>
+            <a href="#contact" class="hover:text-sapGreen transition-colors">Contact</a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden text-white focus:outline-none p-2">
+            <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </div>
+
+        <div id="mobile-menu" class="hidden absolute top-20 left-0 w-full bg-black/95 backdrop-blur-lg border-t border-white/10 flex flex-col items-center py-10 space-y-8 text-xl font-semibold text-white transition-all duration-300">
+            <a href="#home" class="mobile-link hover:text-brandcol">Home</a>
+            <a href="#about" class="mobile-link hover:text-brandcol">About</a>
+            <a href="#product" class="mobile-link hover:text-brandcol">Product</a>
+            <a href="#benefits" class="mobile-link hover:text-brandcol">Benefits</a>
+            <a href="#pricing" class="mobile-link hover:text-brandcol">Pricing</a>
+            <a href="#contact" class="mobile-link hover:text-brandcol">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Home Section (Hero) -->
+    <section id="home" class="relative h-screen w-full flex items-end overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src='Pictures\Steaply Banner.png'>
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 pb-24 w-full">
+            <div class="max-w-3xl animate-slide-up">
+                <br></br>
+                <h2 class="text-vividRed font-semibold uppercase tracking-[0.3em] mb-4 text-sm">Ek Sip, Sehat Bhari Trip</h2>
+                <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Real Tea <br/><span class="text-vividRed">for Real Problems.</span>
+                </h1>
+                <p class="text-white/70 text-lg mb-10 max-w-2xl leading-relaxed">
+                    Steaply offers a healthy choice for a healthy life with flavorful tea bags made using high-quality tea leaves and natural ingredients. 
+                    Our teas are crafted to support digestion, immunity, and everyday wellness without preservatives, without chemicals, and at an affordable price.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#pricing" class="px-10 py-4 bg-vividRed text-white font-semibold rounded-full hover:bg-white hover:text-vividRed transition-all duration-300 transform hover:scale-105 shadow-xl">
+                        Shop Now
+                    </a>
+                    <a href="#product" class="px-10 py-4 border border-white/30 text-white font-semibold rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+                        Explore Healthy Options
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <span class="text-sapGreen font-bold tracking-widest text-xs uppercase">The Brand Story</span>
+                <h2 class="font-heading text-4xl md:text-5xl font-bold mt-2">About Steaply</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="font-heading text-2xl font-semibold mb-4 text-sapGreen">What is Steaply?</h3>
+                        <p class="text-gray-600 leading-relaxed text-lg">
+                            Steaply is a premium Indian tea brand focused on delivering high-quality, health-oriented tea that fits seamlessly into modern daily life.</p>
+                        <p class="text-gray-600 leading-relaxed text-lg">
+                            We provide carefully crafted blends using high-quality tea leaves and natural flavoring materials to help people build better daily habits.</p>
+                        <p class="text-gray-600 leading-relaxed text-lg">
+                            Our teas are created for people who want more than just taste they want wellness, balance, and consistency in every cup.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-offWhite p-6 rounded-2xl border-l-4 border-sapGreen">
+                            <h4 class="font-heading text-xl font-bold mb-3">Health-Focused Approach</h4>
+                            <ul class="text-sm space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <span class="text-sapGreen mr-2">•</span> Supports digestion and gut clarity
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-sapGreen mr-2">•</span> Better alternative to unhealthy drinks
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-sapGreen mr-2">•</span> Natural ingredients only
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-sapGreen mr-2">•</span> Zero preservatives or chemicals
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-offWhite p-6 rounded-2xl border-l-4 border-sapGreen">
+                            <h4 class="font-heading text-xl font-bold mb-3">Vision</h4>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                To become a trusted everyday wellness tea brand known for quality, honesty, and affordability across India. We believe wellness should be simple, consistent, and accessible to everyone.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="absolute -inset-4 bg-sapGreen/10 rounded-3xl transform rotate-3 transition group-hover:rotate-0"></div>
+                    <img src='Pictures\10.jpeg'>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details Section with Scroll-Sync Video -->
+    <section id="product" class="bg-deepBlack">
+        <!-- Interactive Video Section -->
+        <div id="video-container">
+            <video id="sticky-video" muted playsinline preload="auto">
+                <source src='Videos\Steaply.mp4'>
+            </video>
+            <div class="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
+                <div class="text-center px-6">
+                    <h2 class="font-heading text-5xl md:text-7xl text-offWhite font-bold mb-4 opacity-80">Pure. Potent. Perfect.</h2>
+                    <p class="text-offWhite/60 text-xl max-w-xl mx-auto">Scroll to witness the craftsmanship behind every bag.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Specs Content -->
+        <div class="bg-white section-padding">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-20 items-center">
+                    <div class="relative group">
+                    <div class="absolute -inset-4 bg-sapGreen/10 rounded-3xl transform rotate-3 transition group-hover:rotate-0"></div>
+                    <img src='Pictures\11.jpeg'>
+                </div>
+                    <div class="order-1 md:order-2">
+                        <span class="text-sapGreen font-bold tracking-widest text-xs uppercase">The Product</span>
+                        <h2 class="font-heading text-4xl font-bold mt-2 mb-6">About the Product</h2>
+                        <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                            Steaply Premium Tea is made from carefully selected black tea leaves that offer a bold aroma, smooth body, and refreshing finish. Ideal for morning energy, work breaks, and evening relaxation. Designed for daily consumption with a health-focused purpose.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <h3 class="font-heading text-2xl font-bold border-b pb-2">Making Process</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="flex items-center space-x-4 p-4 bg-offWhite rounded-lg">
+                                    <div class="w-10 h-10 bg-sapGreen text-white flex items-center justify-center rounded-full font-bold">1</div>
+                                    <span class="font-medium">Selection of quality black tea leaves</span>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 bg-offWhite rounded-lg">
+                                    <div class="w-10 h-10 bg-sapGreen text-white flex items-center justify-center rounded-full font-bold">2</div>
+                                    <span class="font-medium">Cleaning & grading</span>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 bg-offWhite rounded-lg">
+                                    <div class="w-10 h-10 bg-sapGreen text-white flex items-center justify-center rounded-full font-bold">3</div>
+                                    <span class="font-medium">Blending with natural ingredients</span>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 bg-offWhite rounded-lg">
+                                    <div class="w-10 h-10 bg-sapGreen text-white flex items-center justify-center rounded-full font-bold">4</div>
+                                    <span class="font-medium">Hygienic packing & freshness sealing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Benefits & Uniqueness Section -->
+    <section id="benefits" class="section-padding bg-deepBlack text-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Benefits -->
+                <div class="space-y-8">
+                    <div class="flex items-center space-x-4 mb-10">
+                        <div class="w-12 h-px bg-vividRed"></div>
+                        <h2 class="font-heading text-3xl font-bold tracking-widest uppercase">Benefits</h2>
+                    </div>
+                    <div class="grid gap-6">
+                        <div class="group flex items-center p-6 bg-white/5 rounded-2xl hover:bg-vividRed/20 transition-all border border-white/10">
+                            <div class="w-12 h-12 rounded-full bg-vividRed/20 flex items-center justify-center mr-6 group-hover:scale-110 transition">
+                                <svg class="w-6 h-6 text-vividRed" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <span class="text-xl font-medium">Reduces bloating and acidity</span>
+                        </div>
+                        <div class="group flex items-center p-6 bg-white/5 rounded-2xl hover:bg-vividRed/20 transition-all border border-white/10">
+                            <div class="w-12 h-12 rounded-full bg-vividRed/20 flex items-center justify-center mr-6 group-hover:scale-110 transition">
+                                <svg class="w-6 h-6 text-vividRed" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <span class="text-xl font-medium">Helps boost digestion naturally</span>
+                        </div>
+                        <div class="group flex items-center p-6 bg-white/5 rounded-2xl hover:bg-vividRed/20 transition-all border border-white/10">
+                            <div class="w-12 h-12 rounded-full bg-vividRed/20 flex items-center justify-center mr-6 group-hover:scale-110 transition">
+                                <svg class="w-6 h-6 text-vividRed" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <span class="text-xl font-medium">Supports immunity & Daily detox</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uniqueness -->
+                <div class="space-y-8">
+                    <div class="flex items-center space-x-4 mb-10">
+                        <div class="w-12 h-px bg-vividRed"></div>
+                        <h2 class="font-heading text-3xl font-bold tracking-widest uppercase">Uniqueness</h2>
+                    </div>
+                    <div class="bg-gradient-to-br from-vividRed/10 to-transparent p-10 rounded-3xl border border-vividRed/20">
+                        <ul class="space-y-6 text-xl">
+                            <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-vividRed mr-4"></span> Focus on quality over quantity</li>
+                            <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-vividRed mr-4"></span> Health-first approach</li>
+                            <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-vividRed mr-4"></span> Clean and premium formulation</li>
+                            <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-vividRed mr-4"></span> No artificial flavors or preservatives</li>
+                            <li class="flex items-center"><span class="w-2 h-2 rounded-full bg-vividRed mr-4"></span> Affordable wellness tea</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-20 bg-offWhite overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-12 flex justify-between items-end">
+            <div>
+                <h2 class="font-heading text-4xl font-bold">Visual Rituals</h2>
+                <p class="text-gray-500 mt-2">Experience the essence of Steaply through our lens.</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 px-6 pb-10">
+    
+            <div class="w-full h-[500px] overflow-hidden rounded-3xl">
+                <img src="Pictures\2.2.png" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="w-full h-[500px] overflow-hidden rounded-3xl">
+                <img src="Pictures\2.1.png" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="w-full h-[500px] overflow-hidden rounded-3xl">
+                <img src="Pictures\4.png" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="w-full h-[500px] overflow-hidden rounded-3xl">
+                <img src="Pictures\5.png" class="w-full h-full object-cover">
+            </div>
+            
+        </div>
+    </section>
+
+    
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-padding bg-offWhite">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-vividRed font-bold tracking-widest text-xs uppercase">Choose Your Wellness Journey</span>
+                <h2 class="font-heading text-5xl font-bold mt-2">Simple Pricing</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover">
+                    <h3 class="font-heading text-xl font-bold mb-4">Starter Pack</h3>
+                    <div class="text-3xl font-bold mb-6">₹199</div>
+                    <p class="text-gray-500 mb-8 text-sm">10 Tea Bags</p>
+                    <button onclick="window.open('https://forms.gle/RYVLbJFouxpzAJ4f9', '_blank')" class="w-full py-3 rounded-full border border-sapGreen text-sapGreen font-semibold hover:bg-sapGreen hover:text-white transition">Choose Plan</button>
+                </div>
+
+                <!-- Card 2 - Featured -->
+                <div class="bg-deepBlack p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center card-hover relative transform scale-105 z-10">
+                    <div class="absolute -top-4 bg-vividRed text-white px-4 py-1 rounded-full text-xs font-bold uppercase">Most Popular</div>
+                    <h3 class="font-heading text-xl font-bold mb-4 text-white">Daily Ritual</h3>
+                    <div class="text-4xl font-bold mb-6 text-white text-glow">₹299</div>
+                    <p class="text-gray-400 mb-8 text-sm">20 Tea Bags</p>
+                    <button onclick="window.open('https://forms.gle/RYVLbJFouxpzAJ4f9', '_blank')" class="w-full py-3 rounded-full bg-vividRed text-white font-semibold hover:bg-white hover:text-sapGreen transition">Get Started</button>
+                </div>
+
+                <!-- Card 3 - Featured -->
+                <div class="bg-white p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center card-hover relative transform scale-105 z-10 border-2 border-sapGreen">
+                    <h3 class="font-heading text-xl font-bold mb-4">Saver Pack</h3>
+                    <div class="text-4xl font-bold mb-6 text-sapGreen">₹549</div>
+                    <p class="text-gray-500 mb-8 text-sm">40 Tea Bags</p>
+                    <button onclick="window.open('https://forms.gle/RYVLbJFouxpzAJ4f9', '_blank')" class="w-full py-3 rounded-full bg-sapGreen text-white font-semibold hover:bg-deepBlack transition">Get Started</button>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center text-center card-hover">
+                    <h3 class="font-heading text-xl font-bold mb-4">Mega Pack</h3>
+                    <div class="text-3xl font-bold mb-6">₹699</div>
+                    <p class="text-gray-500 mb-8 text-sm">50 Tea Bags</p>
+                    <button onclick="window.open('https://forms.gle/RYVLbJFouxpzAJ4f9', '_blank')" class="w-full py-3 rounded-full border border-sapGreen text-sapGreen font-semibold hover:bg-sapGreen hover:text-white transition">Choose Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="font-heading text-5xl font-bold mb-8">Contact Us</h2>
+                    <p class="text-gray-500 mb-12 text-lg">Have questions about our blends? We're here to help you find your perfect cup.</p>
+                    
+                    <div class="space-y-8 mb-12">
+                        <div class="flex items-center space-x-6">
+                            <a href="mailto:steaply25@gmail.com" class="flex items-center group">
+                            <div class="w-12 h-12 bg-offWhite rounded-full flex items-center justify-center text-sapGreen">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </a>
+                            <div>
+                                <p class="text-xs uppercase font-bold text-gray-400">Email us at</p>
+                                <p class="text-lg font-medium">steaply25@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-6">
+                            <a href="tel:+916396071740" class="flex items-center group">
+                            <div class="w-12 h-12 bg-offWhite rounded-full flex items-center justify-center text-sapGreen">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                        </a>
+                            <div>
+                                <p class="text-xs uppercase font-bold text-gray-400">Call/WhatsApp</p>
+                                <p class="text-lg font-medium">+91 6396071740</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex space-x-4">
+                        <a href="https://www.instagram.com/steaply_official/" class="w-12 h-12 bg-deepBlack text-white rounded-full flex items-center justify-center hover:bg-sapGreen transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.link/5gohp4" class="w-12 h-12 bg-deepBlack text-white rounded-full flex items-center justify-center hover:bg-sapGreen transition"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="bg-offWhite p-10 rounded-3xl">
+                    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                    <input type="hidden" name="access_key" value="9b9290c8-5dc1-4bab-80fd-a85856d1536d">
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2 text-gray-500">Name</label>
+                            <input type="text" name="name" required class="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sapGreen transition" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase mb-2 text-gray-500">Phone Number</label>
+                            <input type="text" name="phone" required class="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sapGreen transition" placeholder="+91-Phone No">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-2 text-gray-500">Email</label>
+                        <input type="email" name="email" required class="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sapGreen transition" placeholder="john@example.com">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-2 text-gray-500">Subject</label>
+                        <input type="text" name="subject" class="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sapGreen transition" placeholder="How can we help?">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase mb-2 text-gray-500">Message</label>
+                        <textarea name="message" rows="4" required class="w-full bg-white border-0 rounded-xl px-4 py-3 focus:ring-2 focus:ring-sapGreen transition" placeholder="Write your message here..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-deepBlack text-white font-bold rounded-xl hover:bg-sapGreen transition duration-300 transform active:scale-95">
+                        Send Message
+                    </button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Simulation (Simple Nav Bottom) -->
+    <div class="bg-deepBlack py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <span class="font-heading text-2xl font-cinzelBold text-brandcol">STEAPLY</span>
+            <div class="flex space-x-6 text-white/40 text-sm">
+                <a href="#home" class="hover:text-white transition">Home</a>
+                <a href="#about" class="hover:text-white transition">About</a>
+                <a href="#product" class="hover:text-white transition">Product</a>
+                <a href="#pricing" class="hover:text-white transition">Pricing</a>
+            </div>
+            <div class="text-white/20 text-xs">Steaply &trade; 2026</div>
+        </div>
+    </div>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        // Video Scroll Control Logic
+        const video = document.getElementById('sticky-video');
+        const videoContainer = document.getElementById('video-container');
+
+        // This ensures the video is ready to play
+        video.oncanplay = () => {
+            console.log("Video ready");
+        };
+
+        window.addEventListener('scroll', () => {
+            if (video) {
+                const scrollPos = window.pageYOffset;
+                const containerTop = videoContainer.offsetTop;
+                const containerHeight = videoContainer.offsetHeight;
+                const windowHeight = window.innerHeight;
+
+                if (scrollPos >= containerTop && scrollPos <= containerTop + containerHeight - windowHeight) {
+                    const scrollFraction = (scrollPos - containerTop) / (containerHeight - windowHeight);
+                    if (video.duration) {
+                        video.currentTime = video.duration * scrollFraction;
+                    }
+                }
+            }
+        });
+
+        // Simple Mobile Menu Toggle — reuse existing `menuBtn` and guard `menuItems`
+        const menuItems = document.querySelector('nav div.hidden');
+
+        menuBtn?.addEventListener('click', () => {
+            if (!menuItems) return;
+            menuItems.classList.toggle('hidden');
+            menuItems.classList.toggle('flex');
+            menuItems.classList.toggle('flex-col');
+            menuItems.classList.toggle('absolute');
+            menuItems.classList.toggle('top-20');
+            menuItems.classList.toggle('left-0');
+            menuItems.classList.toggle('w-full');
+            menuItems.classList.toggle('bg-deepBlack');
+            menuItems.classList.toggle('p-6');
+            menuItems.classList.toggle('space-y-4');
+        });
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html>
